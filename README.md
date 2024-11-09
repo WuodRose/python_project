@@ -1,0 +1,2 @@
+# python_project
+Livestock_management_system
