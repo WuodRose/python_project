@@ -1,0 +1,23 @@
+<!-- templates/livestock/edit.html -->
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block header %}Edit Animal{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto">
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <form method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <div class="mt-6">
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                    Update Animal
+                </button>
+                <a href="{% url 'animal_list' %}" class="ml-4 text-gray-600 hover:text-gray-800">Cancel
+                </a>
+                </div>
+                </form>
+                </div>
+                </div>
+                {% endblock %}

@@ -1,0 +1,56 @@
+<!-- templates/livestock/detail.html -->
+{% extends 'base.html' %}
+
+{% block header %}Animal Details{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+<div class="bg-white rounded-lg shadow-md p-6">
+<div class="grid grid-cols-2 gap-6">
+<div>
+<h3 class="text-lg font-semibold mb-4">Basic Information</h3>
+<dl class="space-y-2">
+    <dt class="text-gray-600">RFID Tag</dt>
+    <dd class="font-medium">{{ animal.rfid_tag }}</dd>
+    
+    <dt class="text-gray-600">Name</dt>
+    <dd class="font-medium">{{ animal.name }}</dd>
+    
+    <dt class="text-gray-600">Species</dt>
+    <dd class="font-medium">{{ animal.species }}</dd>
+    
+    <dt class="text-gray-600">Breed</dt>
+    <dd class="font-medium">{{ animal.breed }}</dd>
+</dl>
+</div>
+
+<div>
+<h3 class="text-lg font-semibold mb-4">Health Status</h3>
+<div class="space-y-4">
+    {% for health in animal.health_set.all|slice:":5" %}
+    <div class="border-b pb-2">
+        <p class="font-medium">{{ health.condition }}</p>
+        <p class="text-sm text-gray-600">{{ health.date }}</p>
+        <p class="text-sm">{{ health.treatment }}</p>
+    </div>
+    {% endfor %}
+</div>
+</div>
+</div>
+
+<div class="mt-8">
+<h3 class="text-lg font-semibold mb-4">Breeding History</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+{% for breeding in animal.mother_breedings.all %}
+<div class="border rounded p-4">
+    <p class="font-medium">Breeding with {{ breeding.father.name }}</p>
+    <p class="text-sm text-gray-600">Date: {{ breeding.breeding_date }}</p>
+    <p class="text-sm text-gray-600">Expected: {{ breeding.expected_date }}</p>
+    <p class="text-sm">Status: {% if breeding.success %}Successful{% else %}Pending{% endif %}</p>
+</div>
+{% endfor %}
+</div>
+</div>
+</div>
+</div>
+{% endblock %}

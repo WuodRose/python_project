@@ -1,0 +1,44 @@
+<!-- templates/livestock/list.html -->
+{% extends 'base.html' %}
+
+{% block header %}Animals{% endblock %}
+
+{% block content %}
+<div class="mb-6 flex justify-between items-center">
+    <h3 class="text-xl font-semibold">Animal List</h3>
+    <a href="{% url 'animal_add' %}" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+        Add Animal
+    </a>
+</div>
+
+<div class="bg-white rounded-lg shadow-md">
+    <table class="min-w-full">
+        <thead>
+            <tr class="bg-gray-50">
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">RFID Tag</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Species</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Breed</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+            </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200">
+            {% for animal in animals %}
+            <tr>
+                <td class="px-6 py-4">{{ animal.rfid_tag }}</td>
+                <td class="px-6 py-4">{{ animal.name }}</td>
+                <td class="px-6 py-4">{{ animal.species }}</td>
+                <td class="px-6 py-4">{{ animal.breed }}</td>
+                <td class="px-6 py-4">{{ animal.status }}</td>
+                <td class="px-6 py-4">
+                    <a href="{% url 'animal_edit' animal.pk %}" class="text-blue-600 hover:text-blue-900">Edit</a>
+                    <a href="{% url 'animal_delete' animal.pk %}" class="text-red-600 hover:text-red-900 ml-4" 
+                       onclick="return confirm('Are you sure you want to delete this animal?')">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
